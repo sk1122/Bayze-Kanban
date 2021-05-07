@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Kanban Board</title>
+	<link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" href="css/slider.css">
+</head>
+<body>
+	<!-- Navbar -->
+	<div class="nav">
+		<nav>
+			<a href="#" class="brand">Kanban Board</a>
+
+			<ul class="nav-items">
+				<li class="nav-item"><a href="/">Home</a></li>
+				<li class="nav-item" id="login"><a href="login.html">Login</a></li>
+			</ul>
+		</nav>
+	</div>
+
+	<div class="center">
+		<div id="register">
+			<label class="switch">
+				<input type="checkbox" id="toggle">
+				<span class="slider round"></span>
+			</label>
+
+			<i id="progressButton" class="ion-android-arrow-forward next"></i>
+
+			<div id="inputContainer">
+				<input id="inputField" required autofocus />
+				<label id="inputLabel"></label>
+				<div id="inputProgress"></div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Kanban board -->
+	<div class="board">
+		<div class="menu">
+			<div class="invite" id="invite">
+				<i id="progressButton" class="ion-person-add next bi"></i>
+				<p>Invite</p>
+			</div>
+
+			<div class="back" id="back" style="display:none">
+				<input placeholder="" type="text" name="email">
+				<label for="email">Enter Email</label>
+				<i class="ion-person-add next bi"></i>
+			</div>
+		</div>
+		<div class="container" id="container">
+			<div class="todo list">
+				<div class="header">ToDo</div>
+				<div class="list-items todo-list" id="todo">
+				</div>
+			</div>
+			<div class="doing list">
+				<div class="header">Doing</div>
+				<div class="list-items doing-list" id="doing">
+				</div>
+			</div>
+			<div class="done list">
+				<div class="header">Done</div>
+				<div class="list-items done-list" id="done">
+				</div>
+			</div>
+			<div class="trash list">
+				<div class="header">Trash</div>
+				<div class="list-items trash-list" id="trash">
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+	<script src="js/index.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="js/load_localStorage.js"></script>
+</body>
+</html>
