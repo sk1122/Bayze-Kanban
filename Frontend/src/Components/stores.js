@@ -26,3 +26,7 @@ export const boardData = writable([])
 export const singleBoardData = writable({
 	boards: {}
 })
+
+export const visibleTodoModal = writable(['false', '0', 'true'])
+
+export const columnData = writable([])

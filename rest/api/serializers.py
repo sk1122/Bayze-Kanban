@@ -23,5 +23,5 @@ class TodoSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Todo
-		fields = ["todo_name", "todo_desc", "column"]
+		fields = ["id", "todo_name", "todo_desc", "column"]
 		depth = 1

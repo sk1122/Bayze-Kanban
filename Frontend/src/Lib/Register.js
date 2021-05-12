@@ -31,6 +31,7 @@ export function Login(userData) {
 		}
 	})
 	.then((res) => {
+		// console.log(res.text())
 		const data = res.json()
 		.then((d) => {
 			if(res.status === 200 || res.status === '200') {

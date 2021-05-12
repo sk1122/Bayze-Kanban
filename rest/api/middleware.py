@@ -10,6 +10,7 @@ class VerifyTokenMiddleware:
         return response
 
     def process_request(self, request, response):
+        print(request.META.get('HTTP_AUTHORIZATION', " "))
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         data = {
         	'token': token

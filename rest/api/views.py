@@ -51,29 +51,51 @@ class TodoView(ListCreateAPIView):
 
 	def get_queryset(self):
 		user = self.request.user
-		return Todo.objects.all()
+		return Todo.objects.filter(column__board__user=user)
 
 	def post(self, request):
+		column_id = self.request.data.pop('column')
+		column = Column.objects.filter(id=column_id).first()
+
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
-			serializer.save()
+			serializer.save(column=column)
 			return Response({"todo": serializer.data}, status.HTTP_201_CREATED)
 
 		return Response({"error": serializer.errors}, status.HTTP_400_BAD_REQUEST)
+	
+	def put(self, request):
+		column = 0
+		if 'column' in self.request.data:
+			column_id = self.request.data.pop('column')
+			column = Column.objects.filter(id=column_id).first()
 
+		todo_id = self.request.data.pop('todo_id')
+		todo_name = self.request.data.pop('todo_name')
+		todo_desc = self.request.data.pop('todo_desc')
+
+		data = Todo.objects.filter(id=todo_id).update(todo_name=todo_name, todo_desc=todo_desc)
+		print(data)
+		if data == 0:
+			return Response({"todo": "Not Updated"}, status.HTTP_400_BAD_REQUEST)
+		return Response({"todo": "Updated"}, status.HTTP_200_OK)
 
 class ColumnView(ListCreateAPIView):
 	serializer_class = ColumnSerializer
 	permission_classes = (IsAuthenticated, )
 
 	def get_queryset(self):
-		board = self.request.data.get('board')
-		return Column.objects.filter(board=board)
+		user = self.request.user
+
+		return Column.objects.filter(board__user=user)
 
 	def post(self, request):
+		board_id = self.request.data.pop('board')
+		board = Board.objects.filter(id=board_id).first()
+
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
-			serializer.save()
+			serializer.save(board=board)
 			return Response({"column": serializer.data})
 
 		return Response({"error": serializer.errors}, status.HTTP_400_BAD_REQUEST)

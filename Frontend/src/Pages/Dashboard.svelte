@@ -44,13 +44,18 @@
 	}
 
 	export const addBoardModal = () => {
-		if(modal.classList.contains('hidden'))
-			modal.classList.remove('hidden')
+		if(modal.classList.contains('opacity-0'))
+			modal.classList.remove('opacity-0')
+
+		if(modal.classList.contains('pointer-events-none'))
+			modal.classList.remove('pointer-events-none')
+
 		main.classList.add('wrapper')
 	}
 
 	const closeModal = () => {
-		modal.classList.add('hidden')
+		modal.classList.add('opacity-0')
+		modal.classList.add('pointer-events-none')
 		main.classList.remove('wrapper')
 		visibleModal.update(visibleModal => 'false')
 	}
@@ -112,7 +117,7 @@
 </main>
 
 <!-- Modal -->
-<div bind:this={modal} class="hidden absolute text-dark-100 top-1/4 left-48 w-2/3 h-2/3 bg-white-200 shadow-3xl rounded" style="font-family: 'Inter'">
+<div id="modal" bind:this={modal} class="modal opacity-0 ease-in-out pointer-events-none absolute text-dark-100 top-1/4 left-48 w-2/3 h-2/3 bg-white-200 shadow-3xl rounded" style="font-family: 'Inter'">
 	<div on:click={closeModal} class="absolute right-5 top-5 cursor-pointer">
 		<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-white-300" viewBox="0 0 20 20" fill="currentColor">
 			<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -166,5 +171,9 @@
 	    -moz-filter: blur(1px);
 	    -o-filter: blur(1px);
 	    filter: blur(1px);
-	} 
+	}
+
+	.modal {
+		transition: opacity 500ms ease;
+	}
 </style>

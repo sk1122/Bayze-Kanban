@@ -6,6 +6,7 @@
 	import Login from './Pages/Login.svelte';
 	import Dashboard from './Pages/Dashboard.svelte';
 	import SingleBoard from './Pages/SingleBoard.svelte';
+	import PasswordReset from './Pages/PasswordReset.svelte';
 	
 	import Notifier from './Components/Notifier.svelte';
 
@@ -24,6 +25,7 @@
 	})
 	router('/register', () => (page = Register))
 	router('/login', () => (page = Login))
+	router('/password_reset', () => (page = PasswordReset))
 	router('/dash', () => (page = Dashboard))
 	router(
 		'/boards/:id',

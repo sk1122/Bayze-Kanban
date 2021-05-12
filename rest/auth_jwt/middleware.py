@@ -9,6 +9,7 @@ class CheckTokenExists:
 
 	def __call__(self, request):
 		token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+		print(request.META.get('HTTP_AUTHORIZATION', " "))
 
 		try:
 			count = BlackListToken.objects.filter(token=token).count()

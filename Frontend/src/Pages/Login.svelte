@@ -14,7 +14,7 @@
 		
 		btn.addEventListener('click', function(e) {
 			e.preventDefault()
-			Login(JSON.stringify($userData, 0, 2))
+			Login(JSON.stringify($userData))
 		})
 
 	})
@@ -52,7 +52,7 @@
 					</div>
 
 					<div class="text-sm">
-						<a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+						<a href="/password_reset" class="font-medium text-indigo-600 hover:text-indigo-500">
 						Forgot your password?
 						</a>
 					</div>

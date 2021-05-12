@@ -9,13 +9,13 @@
 
 <Tailwind />
 
-<div class="flex flex-wrap">
+<div class="flex flex-wrap z-5">
 	<div class="w-full fixed">
 		<nav class="relative flex flex-wrap items-center justify-between px-2 py-3 bg-transparent">
 			<div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
 				<div class="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
 					<a class="text-sm font-extrabold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap text-2xl text-white-100 inter" href="/" style="font-family: 'Gilroy';">
-						Kanban Board
+						Bayze
 					</a>
 					<button class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none" type="button">
 						<span class="block relative w-6 h-px rounded-sm bg-white"></span>
@@ -37,12 +37,12 @@
 						</li>
 						<li class="nav-item">
 							{#if $user == 'true'}
-								<a on:click={addBoardModal} class="bg-white-200 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-dark-400 hover:text-white-100 rounded hover:bg-dark-200 focus:outline-none focus:ring-4 focus:ring-white-200 focus:ring-opacity-50" href="#">
+								<button on:click={addBoardModal} class="bg-white-200 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-dark-400 hover:text-white-100 rounded hover:bg-dark-200 focus:outline-none focus:ring-4 focus:ring-white-200 focus:ring-opacity-50">
 									<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
 										<path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
 									</svg>
 									New Board
-								</a>
+								</button>
 							{:else}
 								<a class="bg-white-200 px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-dark-400 hover:text-white-100 rounded hover:bg-dark-200 focus:outline-none focus:ring-4 focus:ring-white-200 focus:ring-opacity-50" href="/login">
 									Log In
