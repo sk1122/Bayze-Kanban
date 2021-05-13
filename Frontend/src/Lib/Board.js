@@ -40,10 +40,7 @@ export function postData(data) {
 	.then((res) => {
 		const d = res.json()
 		.then(data => {
-			console.log(data)
 		})
-
-		console.log(res.status)
 	})
 }
 
@@ -63,7 +60,6 @@ export function getSingleBoard(id) {
 	.then(res => {
 		const d = res.json()
 		.then(data => {
-			console.log(data)
 			singleBoardData.update(singleBoardData => data.boards)
 		})
 		if(res.status === 401) {

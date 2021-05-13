@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte'
 	import { visibleTodoModal } from './stores'
-	import { getTodo } from '../Lib/Board'
+	import { getTodo, updateTodo } from '../Lib/Board'
 	import { useEffect } from '../Lib/hooks'
 
 	export let data
@@ -14,6 +14,7 @@
 
 	let options
 	let todo_list
+
 
 	function addTodoModal() {
 		visibleTodoModal.update(visibleTodoModal => ['true', column_id, 'true'])
@@ -47,6 +48,21 @@
 					if(draggedItem == undefined)
 						return
 					list.append(draggedItem)
+					
+					const todo_id = draggedItem.attributes.key.nodeValue
+					const todo_name = draggedItem.firstChild.nodeValue
+					const todo_desc = draggedItem.attributes.desc.nodeValue
+					const column_id = list.attributes.column_id.nodeValue
+
+					let data = JSON.stringify({
+						todo_id: parseInt(todo_id),
+						todo_name: todo_name,
+						todo_desc: todo_desc,
+						column: parseInt(column_id)
+					})
+
+					// console.log(data)
+					updateTodo(data)
 					return
 				})
 			}
@@ -86,12 +102,6 @@
 				<p class="text-white-100 text-sm">Edit</p>
 			</div>
 			<div class="w-3/4 flex justify-center items-center h-10 hover:bg-dark-500 transition rounded hover:duration-500 cursor-pointer">
-				<svg xmlns="http://www.w3.org/2000/svg" class="text-white-100 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-					<path fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clip-rule="evenodd" />
-				</svg>
-				<p class="text-white-100 text-sm">Color</p>
-			</div>
-			<div class="w-3/4 flex justify-center items-center h-10 hover:bg-dark-500 transition rounded hover:duration-500 cursor-pointer">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
 					<path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
 				</svg>
@@ -99,11 +109,11 @@
 			</div>
 		</div>
 	</div>
-	<div bind:this={todo_list} id="list" class="h-full flex flex-col items-center">
+	<div bind:this={todo_list} column_id={column_id} id="list" class="h-full flex flex-col items-center">
 		{#each arrData as d}
 			{#if d.column.board.board_id == board_id}
 				{#if d.column.id == column_id}
-					<div on:click={showTodoDetails(d)}  id="list_item" class="w-1/3 h-10 my-2 px-10 p-5 flex justify-center items-center bg-white-100 rounded text-dark-400 border-l-8 border-white-200" draggable="true">
+					<div on:click={showTodoDetails(d)} key={d.id} desc={d.todo_desc} column_id={d.column.id}  id="list_item" class="w-1/3 h-10 my-2 px-10 p-5 flex justify-center items-center bg-white-100 rounded text-dark-400 border-l-8 border-white-200" draggable="true">
 						{d.todo_name}
 					</div>
 				{/if}

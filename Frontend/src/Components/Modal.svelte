@@ -1,19 +1,12 @@
 <script>
 	import { visibleTodoModal, columnData } from './stores'
-	import { addTodo, updateTodo } from '../Lib/Board'
+	import { addTodo, updateTodo, getTodo } from '../Lib/Board'
 	import { useEffect } from '../Lib/hooks'
 
-	let todoName;
-	let todoDesc;
 	let main
 
 	$: if($visibleTodoModal[0] == "true") {
 		main.classList.remove('hidden')
-	}
-
-	if($visibleTodoModal[2] == "false") {
-		todoName = $visibleTodoModal[1].todo_name
-		todoDesc = $visibleTodoModal[1].todo_desc
 	}
 
 	const closeModal = () => {
@@ -27,10 +20,11 @@
 		else {
 			var todo = JSON.stringify({
 				todo_id: $visibleTodoModal[1].id,
-				todo_name: todoName,
-				todo_desc: todoDesc
+				todo_name: $visibleTodoModal[1].todo_name,
+				todo_desc: $visibleTodoModal[1].todo_desc
 			})
 			updateTodo(todo)
+			getTodo().then(res => {$columnData = res; console.log($columnData)})
 		}
 		closeModal()
 	}
@@ -47,7 +41,7 @@
 			{#if $visibleTodoModal[2] == 'true'}
 				<h1 class="text-3xl text-center text-white-100 font-extrabold" >Add Todo</h1>
 			{:else}
-				<h1 class="text-3xl text-center text-white-100 font-extrabold" >Todo Details</h1>
+				<h1 class="text-3xl text-center text-white-100 font-extrabold">Todo Details</h1>
 			{/if}
 		</div>
 
@@ -57,7 +51,7 @@
 					<div class="box__title bg-white-200 px-3 py-2 border-b">
 						<h3 class="text-sm text-grey-darker font-medium">What do you want to do?</h3>
 					</div>
-					<input bind:value={todoName} type="text" class="appearance-none rounded-none relative block w-full px-3 py-2 placeholder-dark-100 text-dark-500 focus:z-10 sm:text-2xl">
+					<input bind:value={$visibleTodoModal[1].todo_name} type="text" class="appearance-none rounded-none relative block w-full px-3 py-2 placeholder-dark-100 text-dark-500 focus:z-10 sm:text-2xl">
 				</div>
 			</div>
 
@@ -66,7 +60,7 @@
 					<div class="box__title bg-white-200 px-3 py-2 border-b">
 						<h3 class="text-sm text-grey-darker font-medium">Todo Description</h3>
 					</div>
-					<textarea bind:value={todoDesc} maxlength="120" class="text-grey-darkest flex-1 bg-transparent" name="tt"></textarea>
+					<textarea bind:value={$visibleTodoModal[1].todo_desc} maxlength="120" class="text-grey-darkest flex-1 bg-transparent" name="tt"></textarea>
 				</div>
 			</div>
 

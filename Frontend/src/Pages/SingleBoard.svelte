@@ -21,7 +21,7 @@
 	let column_data = []
 	getColumn().then(res => column_data = res)
 
-	getTodo().then(res => {$columnData = res; console.log($columnData)})
+	getTodo().then(res => {$columnData = res})
 
 	function submitColumn() {
 		// console.log(column, params.id)

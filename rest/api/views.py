@@ -74,7 +74,10 @@ class TodoView(ListCreateAPIView):
 		todo_name = self.request.data.pop('todo_name')
 		todo_desc = self.request.data.pop('todo_desc')
 
-		data = Todo.objects.filter(id=todo_id).update(todo_name=todo_name, todo_desc=todo_desc)
+		if column == 0:
+			data = Todo.objects.filter(id=todo_id).update(todo_name=todo_name, todo_desc=todo_desc)
+		else:
+			data = Todo.objects.filter(id=todo_id).update(todo_name=todo_name, todo_desc=todo_desc, column=column)
 		print(data)
 		if data == 0:
 			return Response({"todo": "Not Updated"}, status.HTTP_400_BAD_REQUEST)
